@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbmarca = new System.Windows.Forms.ComboBox();
             this.btnañadir = new System.Windows.Forms.Button();
             this.cmbxtipo = new System.Windows.Forms.ComboBox();
             this.txtdetalles = new System.Windows.Forms.TextBox();
@@ -57,7 +57,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.cmbmarca);
             this.groupBox2.Controls.Add(this.btnañadir);
             this.groupBox2.Controls.Add(this.cmbxtipo);
             this.groupBox2.Controls.Add(this.txtdetalles);
@@ -67,26 +67,22 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(17, 237);
+            this.groupBox2.Location = new System.Drawing.Point(122, 280);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(424, 356);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del aparato";
             // 
-            // comboBox1
+            // cmbmarca
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Pendiente",
-            "Reparada",
-            "Entregada"});
-            this.comboBox1.Location = new System.Drawing.Point(95, 62);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(144, 25);
-            this.comboBox1.TabIndex = 24;
+            this.cmbmarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbmarca.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbmarca.FormattingEnabled = true;
+            this.cmbmarca.Location = new System.Drawing.Point(95, 62);
+            this.cmbmarca.Name = "cmbmarca";
+            this.cmbmarca.Size = new System.Drawing.Size(144, 25);
+            this.cmbmarca.TabIndex = 24;
             // 
             // btnañadir
             // 
@@ -100,6 +96,7 @@
             // 
             // cmbxtipo
             // 
+            this.cmbxtipo.DisplayMember = "descripcion";
             this.cmbxtipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbxtipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbxtipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -110,10 +107,10 @@
             this.cmbxtipo.Size = new System.Drawing.Size(144, 24);
             this.cmbxtipo.TabIndex = 4;
             this.cmbxtipo.TabStop = false;
-            this.cmbxtipo.ValueMember = "id_tipo";
             // 
             // txtdetalles
             // 
+            this.txtdetalles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtdetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdetalles.Location = new System.Drawing.Point(95, 152);
             this.txtdetalles.Margin = new System.Windows.Forms.Padding(4);
@@ -127,10 +124,6 @@
             this.cmbestado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbestado.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbestado.FormattingEnabled = true;
-            this.cmbestado.Items.AddRange(new object[] {
-            "Pendiente",
-            "Reparada",
-            "Entregada"});
             this.cmbestado.Location = new System.Drawing.Point(96, 107);
             this.cmbestado.Name = "cmbestado";
             this.cmbestado.Size = new System.Drawing.Size(121, 25);
@@ -190,7 +183,7 @@
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(17, 19);
+            this.groupBox1.Location = new System.Drawing.Point(122, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(424, 197);
             this.groupBox1.TabIndex = 28;
@@ -199,6 +192,7 @@
             // 
             // txtcliente
             // 
+            this.txtcliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtcliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcliente.Location = new System.Drawing.Point(124, 77);
             this.txtcliente.Margin = new System.Windows.Forms.Padding(4);
@@ -219,6 +213,7 @@
             // 
             // txtfecha
             // 
+            this.txtfecha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtfecha.Location = new System.Drawing.Point(124, 148);
             this.txtfecha.Name = "txtfecha";
             this.txtfecha.Size = new System.Drawing.Size(100, 25);
@@ -226,6 +221,7 @@
             // 
             // txttelefono
             // 
+            this.txttelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txttelefono.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txttelefono.Location = new System.Drawing.Point(124, 117);
             this.txttelefono.Mask = "(999)000-0000";
@@ -246,6 +242,7 @@
             // 
             // txtfnofactura
             // 
+            this.txtfnofactura.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtfnofactura.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtfnofactura.Location = new System.Drawing.Point(124, 37);
             this.txtfnofactura.Margin = new System.Windows.Forms.Padding(4);
@@ -260,7 +257,7 @@
             this.label5.Location = new System.Drawing.Point(25, 120);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 17);
+            this.label5.Size = new System.Drawing.Size(60, 17);
             this.label5.TabIndex = 9;
             this.label5.Text = "Teléfono";
             // 
@@ -287,8 +284,9 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(469, 123);
+            this.dataGridView1.Location = new System.Drawing.Point(574, 166);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(562, 348);
@@ -297,7 +295,7 @@
             // btninsertar
             // 
             this.btninsertar.Enabled = false;
-            this.btninsertar.Location = new System.Drawing.Point(469, 59);
+            this.btninsertar.Location = new System.Drawing.Point(574, 102);
             this.btninsertar.Name = "btninsertar";
             this.btninsertar.Size = new System.Drawing.Size(75, 37);
             this.btninsertar.TabIndex = 26;
@@ -308,7 +306,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 624);
+            this.ClientSize = new System.Drawing.Size(1071, 695);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
@@ -328,7 +326,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbmarca;
         private System.Windows.Forms.Button btnañadir;
         private System.Windows.Forms.ComboBox cmbxtipo;
         private System.Windows.Forms.TextBox txtdetalles;

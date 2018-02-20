@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Data.OleDb;
 using System.Windows.Forms;
 
 namespace Controlreparacionespj
@@ -16,11 +19,12 @@ namespace Controlreparacionespj
         {
             InitializeComponent();
         }
-
+        static string connectionstring = ConfigurationManager.ConnectionStrings["Controlreparacionespj"].ConnectionString;
+        OleDbConnection conn = new OleDbConnection(connectionstring);
         private void RegistroDeOrden_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'reparacionesDS.tipos' Puede moverla o quitarla según sea necesario.
-            this.tiposTableAdapter.Fill(this.reparacionesDS.tipos);
+            Llenar_combobox_Tipos(sender,e);
+            Llenar_combobox_Marca(sender,e);
 
 
         }
@@ -29,7 +33,32 @@ namespace Controlreparacionespj
 
         private void Llenar_combobox_Tipos(object sender, EventArgs e)
         {
+            DataTable tipos = new DataTable();
+            using (conn)
+            {
+                string query = "Select id_tipo,descripcion from tipos";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(tipos);
+            }
+            cmbxtipo.DisplayMember = "descripcion";
+            cmbxtipo.ValueMember = "id_tipo";
+            cmbxtipo.DataSource = tipos;
+        }
+        private void Llenar_combobox_Marca(object sender, EventArgs e)
+        {
+            DataTable marcas = new DataTable();
+            using (conn)
+            {
+                string query = "Select id_marca, marca from marcas";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                marcas.Load(cmd.ExecuteReader());
 
-        } 
+            }
+            cmbmarca.DisplayMember = "marca";
+            cmbmarca.ValueMember = "id_marca";
+            cmbmarca.DataSource = marcas;
+            
+        }
     }
 }
