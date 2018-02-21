@@ -19,20 +19,22 @@ namespace Controlreparacionespj
         {
             InitializeComponent();
         }
-        static string connectionstring = ConfigurationManager.ConnectionStrings["Controlreparacionespj"].ConnectionString;
-        OleDbConnection conn = new OleDbConnection(connectionstring);
+        public static string connectionstring = ConfigurationManager.ConnectionStrings["Controlreparacionespj"].ConnectionString;
+        
         private void RegistroDeOrden_Load(object sender, EventArgs e)
         {
-            Llenar_combobox_Tipos(sender,e);
-            Llenar_combobox_Marca(sender,e);
+            Llenar_combobox_Tipos(sender, e);
+            Llenar_combobox_Marcas(sender, e);
+            Llenar_combobox_Estados(sender, e);
+            LLenar_combobox_Estados_factura(sender, e);
 
 
         }
 
         //Llenar combobox tipos
-
         private void Llenar_combobox_Tipos(object sender, EventArgs e)
         {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
             DataTable tipos = new DataTable();
             using (conn)
             {
@@ -41,24 +43,83 @@ namespace Controlreparacionespj
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(tipos);
             }
+
             cmbxtipo.DisplayMember = "descripcion";
             cmbxtipo.ValueMember = "id_tipo";
             cmbxtipo.DataSource = tipos;
         }
-        private void Llenar_combobox_Marca(object sender, EventArgs e)
+        //Llenar combobox Marcas
+        private void Llenar_combobox_Marcas(object sender, EventArgs e)
         {
+
+            OleDbConnection conn = new OleDbConnection(connectionstring);
             DataTable marcas = new DataTable();
             using (conn)
             {
-                string query = "Select id_marca, marca from marcas";
+                string query = "Select id_marca,marca from marcas";
                 OleDbCommand cmd = new OleDbCommand(query, conn);
-                marcas.Load(cmd.ExecuteReader());
-
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(marcas);
             }
             cmbmarca.DisplayMember = "marca";
             cmbmarca.ValueMember = "id_marca";
             cmbmarca.DataSource = marcas;
-            
+
+
+        }
+        //llenar combobox Estados
+        private void Llenar_combobox_Estados(object sender, EventArgs e)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
+            DataTable estados = new DataTable();
+            using (conn)
+            {
+                string query = "Select id_estado,descripcion from estados";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(estados);
+            }
+            cmbestado.DisplayMember = "descripcion";
+            cmbestado.ValueMember = "id_estado";
+            cmbestado.DataSource = estados;
+        }
+        //llenar combobox Estados factura
+        private void LLenar_combobox_Estados_factura(object sender, EventArgs e)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
+            DataTable estadosfac = new DataTable();
+            using (conn)
+            {
+                string query = "Select id_estadofact,descripcion from estados_fac";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(estadosfac);
+            }
+            cmbestadofac.DisplayMember = "descripcion";
+            cmbestadofac.ValueMember = "id_estadofact";
+            cmbestadofac.DataSource = estadosfac;
+        }
+
+        private void txtfnofactura_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar !='.'))
+            {
+                e.Handled = true;
+            }
+            if((e.KeyChar=='.')&&((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        
+
+        private void txttelefono_Enter_1(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate ()
+            {
+                txttelefono.Select(0, 0);
+            });
         }
     }
 }
+              
