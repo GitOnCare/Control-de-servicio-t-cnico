@@ -39,22 +39,26 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txttelefono = new System.Windows.Forms.MaskedTextBox();
             this.cmbestadofac = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtcliente = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtfecha = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtfnofactura = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvregistrorep = new System.Windows.Forms.DataGridView();
             this.btninsertar = new System.Windows.Forms.Button();
-            this.txttelefono = new System.Windows.Forms.MaskedTextBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvregistrorep)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -95,6 +99,7 @@
             this.btnañadir.TabIndex = 23;
             this.btnañadir.Text = "+\r\n";
             this.btnañadir.UseVisualStyleBackColor = true;
+            this.btnañadir.Click += new System.EventHandler(this.btnañadir_Click);
             // 
             // cmbxtipo
             // 
@@ -180,7 +185,6 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtcliente);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtfecha);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtfnofactura);
             this.groupBox1.Controls.Add(this.label5);
@@ -193,6 +197,16 @@
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la factura";
+            // 
+            // txttelefono
+            // 
+            this.txttelefono.Location = new System.Drawing.Point(124, 111);
+            this.txttelefono.Mask = "000-000-0000";
+            this.txttelefono.Name = "txttelefono";
+            this.txttelefono.PromptChar = ' ';
+            this.txttelefono.Size = new System.Drawing.Size(100, 25);
+            this.txttelefono.TabIndex = 23;
+            this.txttelefono.Enter += new System.EventHandler(this.txttelefono_Enter_1);
             // 
             // cmbestadofac
             // 
@@ -217,12 +231,14 @@
             // txtcliente
             // 
             this.txtcliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtcliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtcliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcliente.Location = new System.Drawing.Point(124, 77);
             this.txtcliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtcliente.Name = "txtcliente";
             this.txtcliente.Size = new System.Drawing.Size(236, 23);
             this.txtcliente.TabIndex = 1;
+            this.txtcliente.TextChanged += new System.EventHandler(this.txtcliente_TextChanged);
             // 
             // label1
             // 
@@ -234,14 +250,6 @@
             this.label1.Size = new System.Drawing.Size(89, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nº de factura";
-            // 
-            // txtfecha
-            // 
-            this.txtfecha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtfecha.Location = new System.Drawing.Point(124, 148);
-            this.txtfecha.Name = "txtfecha";
-            this.txtfecha.Size = new System.Drawing.Size(100, 25);
-            this.txtfecha.TabIndex = 3;
             // 
             // label7
             // 
@@ -278,7 +286,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(275, 148);
+            this.dateTimePicker1.Location = new System.Drawing.Point(126, 148);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(125, 25);
             this.dateTimePicker1.TabIndex = 20;
@@ -294,17 +302,27 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Cliente";
             // 
-            // dataGridView1
+            // dgvregistrorep
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(574, 166);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(562, 348);
-            this.dataGridView1.TabIndex = 27;
+            this.dgvregistrorep.AllowUserToAddRows = false;
+            this.dgvregistrorep.AllowUserToDeleteRows = false;
+            this.dgvregistrorep.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvregistrorep.ColumnHeadersHeight = 25;
+            this.dgvregistrorep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvregistrorep.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5});
+            this.dgvregistrorep.Location = new System.Drawing.Point(574, 150);
+            this.dgvregistrorep.Name = "dgvregistrorep";
+            this.dgvregistrorep.ReadOnly = true;
+            this.dgvregistrorep.RowHeadersVisible = false;
+            this.dgvregistrorep.RowHeadersWidth = 10;
+            this.dgvregistrorep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvregistrorep.Size = new System.Drawing.Size(582, 348);
+            this.dgvregistrorep.TabIndex = 27;
             // 
             // btninsertar
             // 
@@ -316,24 +334,45 @@
             this.btninsertar.Text = "Guardar";
             this.btninsertar.UseVisualStyleBackColor = true;
             // 
-            // txttelefono
+            // Column1
             // 
-            this.txttelefono.Location = new System.Drawing.Point(124, 111);
-            this.txttelefono.Mask = "000-000-0000";
-            this.txttelefono.Name = "txttelefono";
-            this.txttelefono.PromptChar = ' ';
-            this.txttelefono.Size = new System.Drawing.Size(100, 25);
-            this.txttelefono.TabIndex = 23;
-            this.txttelefono.Enter += new System.EventHandler(this.txttelefono_Enter_1);
+            this.Column1.HeaderText = "Tipo";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Marca";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Estado";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Detalles";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Fecha de expiración de garantía";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 175;
             // 
             // RegistroDeOrden
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1237, 794);
+            this.ClientSize = new System.Drawing.Size(1237, 749);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvregistrorep);
             this.Controls.Add(this.btninsertar);
             this.Name = "RegistroDeOrden";
             this.Text = "Registrar Orden";
@@ -342,7 +381,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvregistrorep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,16 +401,20 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtcliente;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MaskedTextBox txtfecha;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtfnofactura;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvregistrorep;
         private System.Windows.Forms.Button btninsertar;
         private System.Windows.Forms.ComboBox cmbestadofac;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MaskedTextBox txttelefono;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
     }
 }

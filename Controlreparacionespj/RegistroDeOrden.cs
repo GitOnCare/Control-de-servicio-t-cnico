@@ -46,6 +46,7 @@ namespace Controlreparacionespj
 
             cmbxtipo.DisplayMember = "descripcion";
             cmbxtipo.ValueMember = "id_tipo";
+            cmbxtipo.SelectedValue = "id_tipo";
             cmbxtipo.DataSource = tipos;
         }
         //Llenar combobox Marcas
@@ -82,6 +83,7 @@ namespace Controlreparacionespj
             cmbestado.DisplayMember = "descripcion";
             cmbestado.ValueMember = "id_estado";
             cmbestado.DataSource = estados;
+            
         }
         //llenar combobox Estados factura
         private void LLenar_combobox_Estados_factura(object sender, EventArgs e)
@@ -119,6 +121,16 @@ namespace Controlreparacionespj
             {
                 txttelefono.Select(0, 0);
             });
+        }
+
+        private void txtcliente_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void btnañadir_Click(object sender, EventArgs e)
+        {
+            string c1 = cmbxtipo.SelectedValue.ToString();
+            string c2 = cmbmarca.SelectedValue.ToString();
         }
     }
 }
