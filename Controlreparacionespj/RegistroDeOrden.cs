@@ -48,6 +48,9 @@ namespace Controlreparacionespj
             cmbxtipo.ValueMember = "id_tipo";
             cmbxtipo.SelectedValue = "id_tipo";
             cmbxtipo.DataSource = tipos;
+            Column1.DataSource = tipos;
+            Column1.DisplayMember = "descripcion";
+            Column1.ValueMember = "id_tipo";
         }
         //Llenar combobox Marcas
         private void Llenar_combobox_Marcas(object sender, EventArgs e)
@@ -65,6 +68,9 @@ namespace Controlreparacionespj
             cmbmarca.DisplayMember = "marca";
             cmbmarca.ValueMember = "id_marca";
             cmbmarca.DataSource = marcas;
+            Column2.DataSource = marcas;
+            Column2.DisplayMember = "marca";
+            Column2.ValueMember = "id_marca";
 
 
         }
@@ -83,6 +89,9 @@ namespace Controlreparacionespj
             cmbestado.DisplayMember = "descripcion";
             cmbestado.ValueMember = "id_estado";
             cmbestado.DataSource = estados;
+            Column3.DataSource = estados;
+            Column3.DisplayMember = "descripcion";
+            Column3.ValueMember = "id_estado";
             
         }
         //llenar combobox Estados factura
@@ -131,6 +140,8 @@ namespace Controlreparacionespj
         {
             string c1 = cmbxtipo.SelectedValue.ToString();
             string c2 = cmbmarca.SelectedValue.ToString();
+            dgvregistrorep.Rows.Add();
+            
         }
     }
 }

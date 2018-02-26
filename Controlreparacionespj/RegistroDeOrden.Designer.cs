@@ -50,12 +50,12 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvregistrorep = new System.Windows.Forms.DataGridView();
-            this.btninsertar = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btninsertar = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvregistrorep)).BeginInit();
@@ -317,12 +317,37 @@
             this.Column5});
             this.dgvregistrorep.Location = new System.Drawing.Point(574, 150);
             this.dgvregistrorep.Name = "dgvregistrorep";
-            this.dgvregistrorep.ReadOnly = true;
             this.dgvregistrorep.RowHeadersVisible = false;
             this.dgvregistrorep.RowHeadersWidth = 10;
             this.dgvregistrorep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvregistrorep.Size = new System.Drawing.Size(582, 348);
             this.dgvregistrorep.TabIndex = 27;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Tipo";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Marca";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Estado";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Detalles";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Fecha de expiración de garantía";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 175;
             // 
             // btninsertar
             // 
@@ -333,37 +358,6 @@
             this.btninsertar.TabIndex = 26;
             this.btninsertar.Text = "Guardar";
             this.btninsertar.UseVisualStyleBackColor = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Tipo";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Marca";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Estado";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Detalles";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Fecha de expiración de garantía";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 175;
             // 
             // RegistroDeOrden
             // 
