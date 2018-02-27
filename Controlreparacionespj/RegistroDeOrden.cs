@@ -23,10 +23,13 @@ namespace Controlreparacionespj
         
         private void RegistroDeOrden_Load(object sender, EventArgs e)
         {
+            txtabono.Text = 0.ToString();
+            txtabono_Leave(sender, e);
             Llenar_combobox_Tipos(sender, e);
             Llenar_combobox_Marcas(sender, e);
             Llenar_combobox_Estados(sender, e);
             LLenar_combobox_Estados_factura(sender, e);
+            llenar_texbox_numeroorden(sender, e);
 
 
         }
@@ -48,9 +51,6 @@ namespace Controlreparacionespj
             cmbxtipo.ValueMember = "id_tipo";
             cmbxtipo.SelectedValue = "id_tipo";
             cmbxtipo.DataSource = tipos;
-            Column1.DataSource = tipos;
-            Column1.DisplayMember = "descripcion";
-            Column1.ValueMember = "id_tipo";
         }
         //Llenar combobox Marcas
         private void Llenar_combobox_Marcas(object sender, EventArgs e)
@@ -67,10 +67,8 @@ namespace Controlreparacionespj
             }
             cmbmarca.DisplayMember = "marca";
             cmbmarca.ValueMember = "id_marca";
+            cmbmarca.SelectedValue = "id_marca";
             cmbmarca.DataSource = marcas;
-            Column2.DataSource = marcas;
-            Column2.DisplayMember = "marca";
-            Column2.ValueMember = "id_marca";
 
 
         }
@@ -88,10 +86,8 @@ namespace Controlreparacionespj
             }
             cmbestado.DisplayMember = "descripcion";
             cmbestado.ValueMember = "id_estado";
+            cmbestado.SelectedValue = "id_estado";
             cmbestado.DataSource = estados;
-            Column3.DataSource = estados;
-            Column3.DisplayMember = "descripcion";
-            Column3.ValueMember = "id_estado";
             
         }
         //llenar combobox Estados factura
@@ -108,9 +104,36 @@ namespace Controlreparacionespj
             }
             cmbestadofac.DisplayMember = "descripcion";
             cmbestadofac.ValueMember = "id_estadofact";
+            cmbestadofac.SelectedValue = "id_estadofact";
             cmbestadofac.DataSource = estadosfac;
         }
 
+        private void llenar_texbox_numeroorden(object sender, EventArgs e)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
+            using (conn)
+            {
+                conn.Open();
+                string query = "Select MAX (id_ordenrep) as id_ordenrep from registro_ordenrep";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                cmd.CommandType = CommandType.Text;
+                OleDbDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["id_ordenrep"].ToString() == string.Empty)
+                    {
+                        txtorden.Text = 1.ToString();
+                    }
+                    else
+                    {
+                        txtorden.Text = (Convert.ToInt32(dr["id_ordenrep"].ToString()) + 1).ToString();
+                    }
+                }
+                dr.Close();
+                conn.Close();
+
+            }
+        }
         private void txtfnofactura_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar !='.'))
@@ -138,10 +161,34 @@ namespace Controlreparacionespj
 
         private void btnañadir_Click(object sender, EventArgs e)
         {
-            string c1 = cmbxtipo.SelectedValue.ToString();
-            string c2 = cmbmarca.SelectedValue.ToString();
-            dgvregistrorep.Rows.Add();
-            
+            string id_orden = txtorden.Text;
+            string id_tipo =cmbxtipo.SelectedValue.ToString();
+            string tipo = cmbxtipo.Text;
+            string id_marca = cmbmarca.SelectedValue.ToString() ;
+            string marca = cmbmarca.Text;
+            string id_estado =cmbestado.SelectedValue.ToString();
+            string estado = cmbestado.Text;
+            string detalles = txtdetalles.Text;
+            string abono =txtabono.Text;
+            string fecha = dateTimePicker1.Text;
+            string[] fila = { id_orden, id_tipo, tipo, id_marca, marca, id_estado, estado, detalles, abono, fecha };
+            dgvregistrorep.Rows.Add(fila);
+            txtorden.Text=(Convert.ToInt32(txtorden.Text)+1).ToString();
+        }
+
+        private void txtabono_Leave(object sender, EventArgs e)
+        {
+            double valor;
+            if(double.TryParse(txtabono.Text, out valor))
+            {
+                txtabono.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C}",valor);
+
+            }
+
+            else
+            {
+                txtabono.Text = string.Empty;
+            }
         }
     }
 }
