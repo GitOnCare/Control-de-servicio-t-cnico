@@ -20,7 +20,7 @@ namespace Controlreparacionespj
             InitializeComponent();
         }
         public static string connectionstring = ConfigurationManager.ConnectionStrings["Controlreparacionespj"].ConnectionString;
-        
+
         private void RegistroDeOrden_Load(object sender, EventArgs e)
         {
             txtabono.Text = 0.ToString();
@@ -30,6 +30,8 @@ namespace Controlreparacionespj
             Llenar_combobox_Estados(sender, e);
             LLenar_combobox_Estados_factura(sender, e);
             llenar_texbox_numeroorden(sender, e);
+            llenar_texbox_numerofac( sender, e);
+            llenar_texbox_cod_cliente(sender, e);
 
 
         }
@@ -88,7 +90,7 @@ namespace Controlreparacionespj
             cmbestado.ValueMember = "id_estado";
             cmbestado.SelectedValue = "id_estado";
             cmbestado.DataSource = estados;
-            
+
         }
         //llenar combobox Estados factura
         private void LLenar_combobox_Estados_factura(object sender, EventArgs e)
@@ -134,18 +136,72 @@ namespace Controlreparacionespj
 
             }
         }
+
+        private void llenar_texbox_numerofac(object sender, EventArgs e)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
+            using (conn)
+            {
+                conn.Open();
+                string query = "Select MAX (id_factura) as id_factura  from facturas";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                cmd.CommandType = CommandType.Text;
+                OleDbDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["id_factura"].ToString() == string.Empty)
+                    {
+                        txtfnofactura.Text = 1.ToString();
+                    }
+                    else
+                    {
+                        txtfnofactura.Text = (Convert.ToInt32(dr["id_ordenrep"].ToString()) + 1).ToString();
+                    }
+                }
+                dr.Close();
+                conn.Close();
+
+            }
+        }
+
+        private void llenar_texbox_cod_cliente(object sender,EventArgs e)
+        {
+            OleDbConnection conn = new OleDbConnection(connectionstring);
+            using (conn)
+            {
+                conn.Open();
+                string query = "Select MAX (id_cliente) as id_cliente from cliente";
+                OleDbCommand cmd = new OleDbCommand(query, conn);
+                cmd.CommandType = CommandType.Text;
+                OleDbDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["id_cliente"].ToString() == string.Empty)
+                    {
+                        txtcod_cliente.Text = 1.ToString();
+                    }
+                    else
+                    {
+                        txtcod_cliente.Text = (Convert.ToInt32(dr["id_cliente"].ToString()) + 1).ToString();
+                    }
+                }
+                dr.Close();
+                conn.Close();
+
+            }
+        }
+
         private void txtfnofactura_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar !='.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
             }
-            if((e.KeyChar=='.')&&((sender as TextBox).Text.IndexOf('.') > -1))
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
         }
-        
 
         private void txttelefono_Enter_1(object sender, EventArgs e)
         {
@@ -154,34 +210,38 @@ namespace Controlreparacionespj
                 txttelefono.Select(0, 0);
             });
         }
-
-        private void txtcliente_TextChanged(object sender, EventArgs e)
-        {
-        }
+        
 
         private void btnañadir_Click(object sender, EventArgs e)
         {
             string id_orden = txtorden.Text;
-            string id_tipo =cmbxtipo.SelectedValue.ToString();
+            string id_tipo = cmbxtipo.SelectedValue.ToString();
             string tipo = cmbxtipo.Text;
-            string id_marca = cmbmarca.SelectedValue.ToString() ;
+            string id_marca = cmbmarca.SelectedValue.ToString();
             string marca = cmbmarca.Text;
-            string id_estado =cmbestado.SelectedValue.ToString();
+            string id_estado = cmbestado.SelectedValue.ToString();
             string estado = cmbestado.Text;
             string detalles = txtdetalles.Text;
-            string abono =txtabono.Text;
+            string abono = txtabono.Text;
             string fecha = dateTimePicker1.Text;
+            txtabono.Text = 0.ToString();
+            txtabono_Leave(sender, e);
             string[] fila = { id_orden, id_tipo, tipo, id_marca, marca, id_estado, estado, detalles, abono, fecha };
-            dgvregistrorep.Rows.Add(fila);
-            txtorden.Text=(Convert.ToInt32(txtorden.Text)+1).ToString();
+            dgvordenes.Rows.Add(fila);
+            txtorden.Text = (Convert.ToInt32(txtorden.Text) + 1).ToString();
+            cmbestado.SelectedIndex = 0;
+            cmbestadofac.SelectedIndex = 0;
+            cmbmarca.SelectedIndex = 0;
+            cmbxtipo.SelectedIndex = 0;
+            txtdetalles.Clear();
         }
 
         private void txtabono_Leave(object sender, EventArgs e)
         {
             double valor;
-            if(double.TryParse(txtabono.Text, out valor))
+            if (double.TryParse(txtabono.Text, out valor))
             {
-                txtabono.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C}",valor);
+                txtabono.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C}", valor);
 
             }
 
@@ -189,7 +249,85 @@ namespace Controlreparacionespj
             {
                 txtabono.Text = string.Empty;
             }
+
+        }
+
+        private void btneliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("¿Desea borrar el registro?", "Atención", MessageBoxButtons.YesNo);
+            if (dialog == DialogResult.Yes)
+            {
+                foreach (DataGridViewRow row in dgvordenes.SelectedRows)
+                {
+                    dgvordenes.Rows.RemoveAt(row.Index);
+                    dgvordenes.Refresh();
+                    txtorden.Text = (Convert.ToInt32(txtorden.Text) - 1).ToString();
+
+                }
+            }
+
+        }
+
+        private void btninsertar_Click(object sender, EventArgs e)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionstring))
+            {
+
+                dateTimePicker1.Value = dateTimePicker1.Value.AddDays(30);
+                conn.Open();
+                string guardar_orden = "insert into registro_ordenrep(id_ordenrep,id_tipo,id_marca,detalles,id_estado,id_factura,fecha_expiracion) values(" +
+                  "@id_ordenrep,@id_tipo,@idmarca,@detalles,@id_estado,@id_factura,@fecha_expiracion)";
+                string guardar_cliente = "insert into cliente(id_cliente,nombre,telefono,celular,fecha_registro)" +
+                    "values(@id_cliente,@nombre,@telefono,@celular,@fecha_registro)";
+                OleDbCommand odm = new OleDbCommand();
+                odm.CommandText = guardar_orden;
+                odm.CommandType = CommandType.Text;
+                odm.Connection = conn;
+
+                foreach (DataGridViewRow row in dgvordenes.Rows)
+                {
+
+                    odm.Parameters.Clear();
+                    odm.Parameters.AddWithValue("@id_ordenrep", row.Cells["idordenrep"].Value);
+                    odm.Parameters.AddWithValue("@id_tipo", row.Cells["idtipo"].Value);
+                    odm.Parameters.AddWithValue("@id_marca", row.Cells["idmarca"].Value);
+                    odm.Parameters.AddWithValue("@detalles", row.Cells["Detalles"].Value);
+                    odm.Parameters.AddWithValue("@id_etado", row.Cells["idestado"].Value);
+                    odm.Parameters.AddWithValue("@id_factura", Convert.ToInt16(txtfnofactura.Text));
+                    odm.Parameters.AddWithValue("@fecha_expiracion", Convert.ToDateTime(dateTimePicker1.Text));
+
+                    odm.ExecuteNonQuery();
+                }
+
+                dateTimePicker1.Value = DateTime.Now;
+                odm.CommandText = guardar_cliente;
+                odm.CommandType = CommandType.Text;
+                odm.Connection = conn;
+                odm.Parameters.Clear();
+                odm.Parameters.AddWithValue("@id_cliente",Convert.ToInt32(txtcliente.Text));
+                odm.Parameters.AddWithValue("@nombre",txtcliente.Text);
+                odm.Parameters.AddWithValue("@telefono", txttelefono.Text);
+                odm.Parameters.AddWithValue("@celular", txtcelular.Text);
+                odm.Parameters.AddWithValue("@fecha_registro", Convert.ToDateTime(dateTimePicker1.Text));
+
+
+                dgvordenes.Rows.Clear();
+            }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
+
               
