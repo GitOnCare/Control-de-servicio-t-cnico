@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace Controlreparacionespj
 {
-    public partial class RegistroDeOrden : Form
+    public partial class FRMRegistroDeOrden : Form
     {
-        public RegistroDeOrden()
+        public FRMRegistroDeOrden()
         {
             InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace Controlreparacionespj
 
 
         }
-
+        
         //Llenar combobox tipos
         private void Llenar_combobox_Tipos(object sender, EventArgs e)
         {
@@ -54,6 +54,7 @@ namespace Controlreparacionespj
             cmbxtipo.SelectedValue = "id_tipo";
             cmbxtipo.DataSource = tipos;
         }
+       
         //Llenar combobox Marcas
         private void Llenar_combobox_Marcas(object sender, EventArgs e)
         {
@@ -74,6 +75,7 @@ namespace Controlreparacionespj
 
 
         }
+       
         //llenar combobox Estados
         private void Llenar_combobox_Estados(object sender, EventArgs e)
         {
@@ -92,6 +94,7 @@ namespace Controlreparacionespj
             cmbestado.DataSource = estados;
 
         }
+       
         //llenar combobox Estados factura
         private void LLenar_combobox_Estados_factura(object sender, EventArgs e)
         {
@@ -109,7 +112,8 @@ namespace Controlreparacionespj
             cmbestadofac.SelectedValue = "id_estadofact";
             cmbestadofac.DataSource = estadosfac;
         }
-
+        
+        //llenar textbox numero de orden
         private void llenar_texbox_numeroorden(object sender, EventArgs e)
         {
             OleDbConnection conn = new OleDbConnection(connectionstring);
@@ -136,7 +140,8 @@ namespace Controlreparacionespj
 
             }
         }
-
+        
+        //llenar textbox numero de factura
         private void llenar_texbox_numerofac(object sender, EventArgs e)
         {
             OleDbConnection conn = new OleDbConnection(connectionstring);
@@ -164,6 +169,7 @@ namespace Controlreparacionespj
             }
         }
 
+        //llenar texbox cod_cliente
         private void llenar_texbox_cod_cliente(object sender,EventArgs e)
         {
             OleDbConnection conn = new OleDbConnection(connectionstring);
@@ -191,6 +197,7 @@ namespace Controlreparacionespj
             }
         }
 
+        //filtrar letras y signos
         private void txtfnofactura_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -203,6 +210,7 @@ namespace Controlreparacionespj
             }
         }
 
+        //Colocación del cursor
         private void txttelefono_Enter_1(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate ()
@@ -210,10 +218,11 @@ namespace Controlreparacionespj
                 txttelefono.Select(0, 0);
             });
         }
-        
 
+        //Pasar datos a datagridview
         private void btnañadir_Click(object sender, EventArgs e)
         {
+
             string id_orden = txtorden.Text;
             string id_tipo = cmbxtipo.SelectedValue.ToString();
             string tipo = cmbxtipo.Text;
@@ -234,8 +243,10 @@ namespace Controlreparacionespj
             cmbmarca.SelectedIndex = 0;
             cmbxtipo.SelectedIndex = 0;
             txtdetalles.Clear();
+
         }
 
+        //Colocar formato de moneda
         private void txtabono_Leave(object sender, EventArgs e)
         {
             double valor;
@@ -252,6 +263,7 @@ namespace Controlreparacionespj
 
         }
 
+        //Quitar fila
         private void btneliminar_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show("¿Desea borrar el registro?", "Atención", MessageBoxButtons.YesNo);
@@ -268,10 +280,12 @@ namespace Controlreparacionespj
 
         }
 
+        //Guardar datos
         private void btninsertar_Click(object sender, EventArgs e)
         {
             using (OleDbConnection conn = new OleDbConnection(connectionstring))
             {
+
 
                 dateTimePicker1.Value = dateTimePicker1.Value.AddDays(30);
                 conn.Open();
@@ -279,10 +293,13 @@ namespace Controlreparacionespj
                   "@id_ordenrep,@id_tipo,@idmarca,@detalles,@id_estado,@id_factura,@fecha_expiracion)";
                 string guardar_cliente = "insert into cliente(id_cliente,nombre,telefono,celular,fecha_registro)" +
                     "values(@id_cliente,@nombre,@telefono,@celular,@fecha_registro)";
+                string guardar_factura = "insert into facturas(id_factura,fecha_creacion,id_cliente,id_usuario,id_estadofact)" +
+                    "values(@id_factura,@fecha_creacion,@id_cliente,@id_usuario,@id_estadofact)";
                 OleDbCommand odm = new OleDbCommand();
                 odm.CommandText = guardar_orden;
                 odm.CommandType = CommandType.Text;
                 odm.Connection = conn;
+
 
                 foreach (DataGridViewRow row in dgvordenes.Rows)
                 {
@@ -298,20 +315,43 @@ namespace Controlreparacionespj
 
                     odm.ExecuteNonQuery();
                 }
+                
+                {
+                    dateTimePicker1.Value = DateTime.Now;
+                    odm.CommandText = guardar_cliente;
+                    odm.CommandType = CommandType.Text;
+                    odm.Connection = conn;
+                    odm.Parameters.Clear();
+                    odm.Parameters.AddWithValue("@id_cliente", Convert.ToInt16(txtcod_cliente.Text));
+                    odm.Parameters.AddWithValue("@nombre", txtcliente.Text);
+                    odm.Parameters.AddWithValue("@telefono", txttelefono.Text);
+                    odm.Parameters.AddWithValue("@celular", txtcelular.Text);
+                    odm.Parameters.AddWithValue("@fecha_registro", Convert.ToDateTime(dateTimePicker1.Text));
+                    odm.ExecuteNonQuery();
+                    
+                }
 
-                dateTimePicker1.Value = DateTime.Now;
-                odm.CommandText = guardar_cliente;
-                odm.CommandType = CommandType.Text;
-                odm.Connection = conn;
-                odm.Parameters.Clear();
-                odm.Parameters.AddWithValue("@id_cliente",Convert.ToInt32(txtcliente.Text));
-                odm.Parameters.AddWithValue("@nombre",txtcliente.Text);
-                odm.Parameters.AddWithValue("@telefono", txttelefono.Text);
-                odm.Parameters.AddWithValue("@celular", txtcelular.Text);
-                odm.Parameters.AddWithValue("@fecha_registro", Convert.ToDateTime(dateTimePicker1.Text));
-
+                {
+                    odm.CommandText = guardar_factura;
+                    odm.CommandType = CommandType.Text;
+                    odm.Connection = conn;
+                    odm.Parameters.Clear();
+                    odm.Parameters.AddWithValue("@id_factura", Convert.ToInt16(txtfnofactura.Text));
+                    odm.Parameters.AddWithValue("@fecha_creacion", Convert.ToDateTime(dateTimePicker1.Text));
+                    odm.Parameters.AddWithValue("@id_cliente", Convert.ToInt16(txtcod_cliente.Text));
+                    odm.Parameters.AddWithValue("@id_usuario", Convert.ToInt16(txtcod_cliente.Text));
+                    odm.Parameters.AddWithValue("@id_estadofact",cmbestadofac.SelectedValue);
+                    odm.ExecuteNonQuery();
+                }
 
                 dgvordenes.Rows.Clear();
+                txtfnofactura.Text = (Convert.ToInt32(txtfnofactura.Text) + 1).ToString();
+                txtcod_cliente.Text = (Convert.ToInt32(txtcod_cliente.Text) + 1).ToString();
+                txtcliente.Clear();
+                txtcelular.Clear();
+                cmbestadofac.SelectedIndex = 0;
+
+
             }
         }
 
@@ -326,6 +366,19 @@ namespace Controlreparacionespj
             {
                 e.Handled = true;
             }
+        }
+
+        private void txtcliente_Enter(object sender, EventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate ()
+            {
+                txttelefono.Select(0, 0);
+            });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

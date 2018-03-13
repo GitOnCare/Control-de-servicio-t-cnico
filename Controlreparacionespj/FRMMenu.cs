@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Controlreparacionespj
 {
-    public partial class Menu : Form
+    public partial class FRMMenu : Form
     {
-        public Menu()
+        public FRMMenu()
         {
             InitializeComponent();
         }
@@ -20,6 +20,12 @@ namespace Controlreparacionespj
         private void Menu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void consultaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FRMRegistroDeOrden frm = new FRMRegistroDeOrden();
+            frm.ShowDialog();
         }
     }
 }

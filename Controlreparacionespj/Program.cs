@@ -16,7 +16,7 @@ namespace Controlreparacionespj
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RegistroDeOrden());
+            Application.Run(new FRMconsultaclientes());
         }
     }
 }

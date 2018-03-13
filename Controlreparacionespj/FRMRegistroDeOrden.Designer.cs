@@ -1,6 +1,6 @@
 ﻿namespace Controlreparacionespj
 {
-    partial class RegistroDeOrden
+    partial class FRMRegistroDeOrden
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtcelular = new System.Windows.Forms.MaskedTextBox();
+            this.lblcelular = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.txtcod_cliente = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -69,8 +71,7 @@
             this.abono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaexp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btninsertar = new System.Windows.Forms.Button();
-            this.txtcelular = new System.Windows.Forms.MaskedTextBox();
-            this.lblcelular = new System.Windows.Forms.Label();
+            this.txtcod_usuario = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvordenes)).BeginInit();
@@ -93,9 +94,9 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(122, 358);
+            this.groupBox2.Location = new System.Drawing.Point(122, 326);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(424, 444);
+            this.groupBox2.Size = new System.Drawing.Size(424, 402);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del aparato";
@@ -103,7 +104,7 @@
             // btneliminar
             // 
             this.btneliminar.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneliminar.Location = new System.Drawing.Point(216, 378);
+            this.btneliminar.Location = new System.Drawing.Point(216, 353);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(115, 37);
             this.btneliminar.TabIndex = 30;
@@ -164,7 +165,7 @@
             // btnañadir
             // 
             this.btnañadir.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnañadir.Location = new System.Drawing.Point(73, 378);
+            this.btnañadir.Location = new System.Drawing.Point(73, 353);
             this.btnañadir.Name = "btnañadir";
             this.btnañadir.Size = new System.Drawing.Size(115, 37);
             this.btnañadir.TabIndex = 23;
@@ -267,22 +268,44 @@
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(122, 31);
+            this.groupBox1.Location = new System.Drawing.Point(122, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(424, 308);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la factura";
             // 
+            // txtcelular
+            // 
+            this.txtcelular.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtcelular.Location = new System.Drawing.Point(124, 137);
+            this.txtcelular.Mask = "000-000-0000";
+            this.txtcelular.Name = "txtcelular";
+            this.txtcelular.PromptChar = ' ';
+            this.txtcelular.Size = new System.Drawing.Size(100, 25);
+            this.txtcelular.TabIndex = 28;
+            // 
+            // lblcelular
+            // 
+            this.lblcelular.AutoSize = true;
+            this.lblcelular.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblcelular.Location = new System.Drawing.Point(4, 145);
+            this.lblcelular.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblcelular.Name = "lblcelular";
+            this.lblcelular.Size = new System.Drawing.Size(49, 17);
+            this.lblcelular.TabIndex = 27;
+            this.lblcelular.Text = "Celular";
+            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(197, 76);
+            this.button1.Location = new System.Drawing.Point(216, 69);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 24);
             this.button1.TabIndex = 26;
             this.button1.Text = "Buscar...";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtcod_cliente
             // 
@@ -349,6 +372,7 @@
             this.txtcliente.Name = "txtcliente";
             this.txtcliente.Size = new System.Drawing.Size(236, 23);
             this.txtcliente.TabIndex = 1;
+            this.txtcliente.Enter += new System.EventHandler(this.txtcliente_Enter);
             // 
             // label1
             // 
@@ -390,7 +414,7 @@
             this.label5.Location = new System.Drawing.Point(4, 181);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 17);
+            this.label5.Size = new System.Drawing.Size(59, 17);
             this.label5.TabIndex = 9;
             this.label5.Text = "Teléfono";
             // 
@@ -432,7 +456,7 @@
             this.detalles,
             this.abono,
             this.fechaexp});
-            this.dgvordenes.Location = new System.Drawing.Point(567, 150);
+            this.dgvordenes.Location = new System.Drawing.Point(567, 118);
             this.dgvordenes.Name = "dgvordenes";
             this.dgvordenes.ReadOnly = true;
             this.dgvordenes.RowHeadersVisible = false;
@@ -514,37 +538,25 @@
             this.btninsertar.UseVisualStyleBackColor = true;
             this.btninsertar.Click += new System.EventHandler(this.btninsertar_Click);
             // 
-            // txtcelular
+            // txtcod_usuario
             // 
-            this.txtcelular.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtcelular.Location = new System.Drawing.Point(124, 137);
-            this.txtcelular.Mask = "000-000-0000";
-            this.txtcelular.Name = "txtcelular";
-            this.txtcelular.PromptChar = ' ';
-            this.txtcelular.Size = new System.Drawing.Size(100, 25);
-            this.txtcelular.TabIndex = 28;
+            this.txtcod_usuario.Location = new System.Drawing.Point(13, 68);
+            this.txtcod_usuario.Name = "txtcod_usuario";
+            this.txtcod_usuario.Size = new System.Drawing.Size(100, 20);
+            this.txtcod_usuario.TabIndex = 30;
             // 
-            // lblcelular
-            // 
-            this.lblcelular.AutoSize = true;
-            this.lblcelular.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcelular.Location = new System.Drawing.Point(4, 145);
-            this.lblcelular.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblcelular.Name = "lblcelular";
-            this.lblcelular.Size = new System.Drawing.Size(49, 17);
-            this.lblcelular.TabIndex = 27;
-            this.lblcelular.Text = "Celular";
-            // 
-            // RegistroDeOrden
+            // FRMRegistroDeOrden
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 839);
+            this.ClientSize = new System.Drawing.Size(1284, 749);
+            this.Controls.Add(this.txtcod_usuario);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvordenes);
             this.Controls.Add(this.btninsertar);
-            this.Name = "RegistroDeOrden";
+            this.Name = "FRMRegistroDeOrden";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar Orden";
             this.Load += new System.EventHandler(this.RegistroDeOrden_Load);
             this.groupBox2.ResumeLayout(false);
@@ -553,6 +565,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvordenes)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -601,5 +614,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.MaskedTextBox txtcelular;
         private System.Windows.Forms.Label lblcelular;
+        private System.Windows.Forms.TextBox txtcod_usuario;
     }
 }
